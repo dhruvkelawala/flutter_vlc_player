@@ -24,6 +24,11 @@ class Size {
 class VlcPlayer extends StatefulWidget {
   final double aspectRatio;
   final String url;
+<<<<<<< HEAD
+=======
+  final bool isLocal;
+  final String subtitle;
+>>>>>>> 00e39b7... Add subtitle display support for Android
   final Widget placeholder;
   final VlcPlayerController controller;
 
@@ -41,6 +46,11 @@ class VlcPlayer extends StatefulWidget {
     /// This is the initial URL for the content. This also must be provided but [VlcPlayerController] implements
     /// [VlcPlayerController.setStreamUrl] method so this can be changed at any time.
     @required this.url,
+<<<<<<< HEAD
+=======
+    this.isLocal=false,
+    this.subtitle="",
+>>>>>>> 00e39b7... Add subtitle display support for Android
 
     /// Before the platform view has initialized, this placeholder will be rendered instead of the video player.
     /// This can simply be a [CircularProgressIndicator] (see the example.)
@@ -121,7 +131,11 @@ class _VlcPlayerState extends State<VlcPlayer>
     // Once the controller has clients registered, we're good to register
     // with LibVLC on the platform side.
     if (_controller.hasClients) {
+<<<<<<< HEAD
       await _controller._initialize(widget.url);
+=======
+      await _controller._initialize(widget.url, widget.isLocal, widget.subtitle);
+>>>>>>> 00e39b7... Add subtitle display support for Android
     }
   }
 
@@ -245,10 +259,17 @@ class VlcPlayerController {
     _eventHandlers.forEach((handler) => handler());
   }
 
+<<<<<<< HEAD
   Future<void> _initialize(String url) async {
     //if(initialized) throw new Exception("Player already initialized!");
 
     await _methodChannel.invokeMethod("initialize", {'url': url});
+=======
+  Future<void> _initialize(String url, bool isLocal, String subtitle) async {
+    //if(initialized) throw new Exception("Player already initialized!");
+
+    await _methodChannel.invokeMethod("initialize", {'url': url, 'isLocal':isLocal, 'subtitle':subtitle});
+>>>>>>> 00e39b7... Add subtitle display support for Android
     _position = 0;
 
     _eventChannel.receiveBroadcastStream().listen((event) {
@@ -275,6 +296,10 @@ class VlcPlayerController {
           _playbackSpeed = event['speed'];
           _fireEventHandlers();
           break;
+        case 'position':
+          _position = event['value'];
+          _fireEventHandlers();
+          break;
       }
     });
 
@@ -283,12 +308,20 @@ class VlcPlayerController {
     _onInit();
   }
 
+<<<<<<< HEAD
   Future<void> setStreamUrl(String url) async {
+=======
+  Future<void> setStreamUrl(String url, bool isLocal, String subtitle) async {
+>>>>>>> 00e39b7... Add subtitle display support for Android
     _initialized = false;
     _fireEventHandlers();
 
     bool wasPlaying = _playingState != PlayingState.STOPPED;
+<<<<<<< HEAD
     await _methodChannel.invokeMethod("changeURL", {'url': url});
+=======
+    await _methodChannel.invokeMethod("changeURL", {'url': url, 'isLocal':isLocal, 'subtitle':subtitle});
+>>>>>>> 00e39b7... Add subtitle display support for Android
     if (wasPlaying) play();
 
     _initialized = true;
