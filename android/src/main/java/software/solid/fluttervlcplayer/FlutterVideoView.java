@@ -138,6 +138,9 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
     @SuppressLint("WrongThread")
     @Override
     public void onMethodCall(MethodCall methodCall, @NonNull MethodChannel.Result result) {
+
+        String subtitle="";
+
         switch (methodCall.method) {
             case "initialize":
                 if (textureView == null) {
@@ -165,8 +168,14 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
                 vout.attachViews();
 
                 String initStreamURL = methodCall.argument("url");
+
                 Media media = new Media(libVLC, Uri.parse(initStreamURL));
+
+                subtitle=methodCall.argument("subtitle");
+
                 mediaPlayer.setMedia(media);
+                if (!subtitle.isEmpty())
+                    mediaPlayer.addSlave(Media.Slave.Type.Subtitle, subtitle, true);
 
                 result.success(null);
                 break;
@@ -231,6 +240,7 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
 
                 result.success(null);
                 break;
+
         }
     }
 
