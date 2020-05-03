@@ -297,7 +297,7 @@ class VlcPlayerController {
           _fireEventHandlers();
           break;
         case 'position':
-          _position = event['value'];
+          //_position = event['value'];
           _fireEventHandlers();
           break;
       }
