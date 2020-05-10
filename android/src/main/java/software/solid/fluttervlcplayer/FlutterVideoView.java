@@ -46,14 +46,9 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
     private MediaPlayer mediaPlayer;
     private VLCVideoLayout frameLayout;
     private TextureView textureView;
-    // private TextureView subtitleView;
+
     private IVLCVout vout;
     private boolean playerDisposed;
-
-
-    // private Boolean subtitleTextureValid=false;
-    // private Boolean videoTextureValid=false;
-
 
     public FlutterVideoView(Context context, PluginRegistry.Registrar _registrar, BinaryMessenger messenger, int id) {
         this.playerDisposed = false;
@@ -76,15 +71,16 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
             }
         });
 
-//        TextureRegistry.SurfaceTextureEntry textureEntry = registrar.textures().createSurfaceTexture();
-//        TextureRegistry.SurfaceTextureEntry subtitleEntry = registrar.textures().createSurfaceTexture();
+        TextureRegistry.SurfaceTextureEntry textureEntry = registrar.textures().createSurfaceTexture();
         createLayout(context);
+
 
 //        textureView.setSurfaceTexture(textureEntry.surfaceTexture());
 //        subtitleView.setSurfaceTexture(subtitleEntry.surfaceTexture());
 //
-////        subtitleView.setZOrderMediaOverlay(true);
-////        subtitleView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
+
+        textureView.setSurfaceTexture(textureEntry.surfaceTexture());
+
 //
 //        textureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
 //
@@ -95,10 +91,7 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
 //                if (vout == null) return;
 //
 //                vout.setVideoSurface(new Surface(textureView.getSurfaceTexture()), null);
-////                videoTextureValid=true;
-////
-////                if (subtitleTextureValid && videoTextureValid)
-//                    vout.attachViews();
+//                vout.attachViews();
 //                textureView.forceLayout();
 //                if (wasPaused) {
 //                    mediaPlayer.play();
@@ -136,6 +129,7 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
 //            }
 //
 //        });
+
 
 //        subtitleView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
 //            @Override
@@ -180,6 +174,7 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
 
         frameLayout.addView(textureView);
         // frameLayout.addView(subtitleView);
+
     }
 
     @Override
@@ -234,6 +229,7 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
                 // vout.setVideoSurface(new Surface(textureView.getSurfaceTexture()), null);
                 vout.setVideoView(textureView);
                 // vout.setSubtitlesView(subtitleView);
+
 
                 vout.attachViews();
 
