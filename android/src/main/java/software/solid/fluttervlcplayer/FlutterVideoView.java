@@ -184,8 +184,8 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
                 loop = methodCall.argument("loop");
                 if (loop)
                     options.add("--input-repeat=65535");
-                if (!isLocal)
-                    options.add("--rtsp-tcp");
+//                if (!isLocal)
+//                    options.add("--rtsp-tcp");
 
                 libVLC = new LibVLC(context, options);
                 mediaPlayer = new MediaPlayer(libVLC);
