@@ -202,7 +202,7 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
                 if (isLocal)
                     media = new Media(libVLC, Uri.fromFile(new File(initStreamURL)));
                 else {
-                    media = new Media(libVLC, Uri.parse(Uri.decode(initStreamURL)));
+                    media = new Media(libVLC, Uri.parse((initStreamURL)));
                 }
 
                 mediaPlayer.setMedia(media);
@@ -227,7 +227,7 @@ class FlutterVideoView implements PlatformView, MethodChannel.MethodCallHandler,
                 if (isLocal)
                     newMedia = new Media(libVLC, Uri.fromFile(new File(newURL)));
                 else
-                    newMedia = new Media(libVLC, Uri.parse(Uri.decode(newURL)));
+                    newMedia = new Media(libVLC, Uri.parse(newURL));
                 newMedia.setHWDecoderEnabled(true, true);
                 mediaPlayer.setMedia(newMedia);
                 //if (playing)
