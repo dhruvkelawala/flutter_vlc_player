@@ -127,11 +127,11 @@ class MyAppScaffoldState extends State<MyAppScaffold> {
             FlatButton(
                 child: isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow),
                 onPressed: () => {playOrPauseVideo()}),
-            FlatButton(
-              child: Text("Change URL"),
-              onPressed: () => _videoViewController.setStreamUrl(
-                  "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_2160p_60fps_normal.mp4"),
-            ),
+            // FlatButton(
+            //   child: Text("Change URL"),
+            //   onPressed: () => _videoViewController.setStreamUrl(
+            //       "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_2160p_60fps_normal.mp4"),
+            // ),
             FlatButton(
                 child: Text("+speed"),
                 onPressed: () => _videoViewController.setPlaybackSpeed(2.0)),
